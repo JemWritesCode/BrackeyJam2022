@@ -1,0 +1,4 @@
+# .gitignore for the entire solution
+
+# Visual Studio cache directory
+.vs/
