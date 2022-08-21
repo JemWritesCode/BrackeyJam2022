@@ -1,4 +1,4 @@
-# KenneyJam2022
-Kenney Game Jam 2022 source code
+# BrackeyJam
+BrackyJam 2022.2 code
 
 ## Assets Used
