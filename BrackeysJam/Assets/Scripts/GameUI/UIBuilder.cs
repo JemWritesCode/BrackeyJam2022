@@ -37,18 +37,32 @@ public class UIBuilder : EditorWindow {
     GUILayout.Space(20f);
 
     if (GUILayout.Button("Generate")) {
-      GenerateThenSave();
+      GenerateThenSaveSprite();
     }
   }
 
-  void GenerateThenSave() {
+  void GenerateThenSaveSprite() {
     Sprite sprite = CreateRoundedCornerSprite(_spriteWidth, _spriteHeight, _spriteRadius, FilterMode.Bilinear);
-    string filename = Path.Combine(_targetPath, $"{sprite.name}.png");
 
+    string filename = Path.Combine(_targetPath, $"{sprite.name}.png");
     Debug.Log($"Saving texture to: {filename}");
 
     byte[] bytes = sprite.texture.EncodeToPNG();
     File.WriteAllBytes(filename, bytes);
+
+    AssetDatabase.Refresh();
+
+    filename = $"Assets{filename[Application.dataPath.Length..]}";
+    Debug.Log($"Reloading saved texture at relative path: {filename}");
+
+    TextureImporter importer = (TextureImporter) AssetImporter.GetAtPath(filename);
+    importer.spritePixelsPerUnit = sprite.pixelsPerUnit;
+    importer.mipmapEnabled = false;
+    importer.textureType = TextureImporterType.Sprite;
+    importer.spriteBorder = sprite.border;
+
+    EditorUtility.SetDirty(importer);
+    importer.SaveAndReimport();
 
     Debug.Log($"Done!");
   }
@@ -100,7 +114,8 @@ public class UIBuilder : EditorWindow {
             SpriteMeshType.FullRect,
             new(borderWidth, borderHeight, borderWidth, borderHeight));
 
-    sprite.name = name;
+    sprite.name = $"{name}-{borderWidth}bw-{borderHeight}bh";
+
     return sprite;
   }
 
