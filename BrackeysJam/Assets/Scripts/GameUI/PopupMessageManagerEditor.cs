@@ -17,14 +17,16 @@ public class PopupMessageManagerEditor : Editor {
 
       EditorGUILayout.BeginHorizontal();
 
-      if (GUILayout.Button("ShowMessage")) {
-        PopupMessageManager manager = Selection.activeGameObject.GetComponent<PopupMessageManager>();
-        manager.ShowMessage(_showMessageText);
-      }
+      using (new EditorGUI.DisabledScope(!Application.isPlaying)) {
+        if (GUILayout.Button("ShowMessage")) {
+          PopupMessageManager manager = Selection.activeGameObject.GetComponent<PopupMessageManager>();
+          manager.ShowMessage(_showMessageText);
+        }
 
-      if (GUILayout.Button("HideMessage")) {
-        PopupMessageManager manager = Selection.activeGameObject.GetComponent<PopupMessageManager>();
-        manager.HideMessage();
+        if (GUILayout.Button("HideMessage")) {
+          PopupMessageManager manager = Selection.activeGameObject.GetComponent<PopupMessageManager>();
+          manager.HideMessage();
+        }
       }
 
       EditorGUILayout.EndHorizontal();

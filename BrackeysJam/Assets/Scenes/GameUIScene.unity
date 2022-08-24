@@ -2385,6 +2385,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MessagePanel>k__BackingField: {fileID: 637501887}
   <MessageText>k__BackingField: {fileID: 878692834}
+  <ShowMessageEase>k__BackingField: 1
+  <HideMessageEase>k__BackingField: 1
 --- !u!1 &1788719382
 GameObject:
   m_ObjectHideFlags: 0
