@@ -9,7 +9,7 @@ public class Extrovert : MonoBehaviour
     public float speed = 5;
     public float waitTime = .3f;
     public float turnSpeed = 90;
-    public float timeToSpotPlayer = .5f;
+    public float timeToSpotPlayer = 0.001f;
 
     public Light spotlight;
     public float viewDistance;
