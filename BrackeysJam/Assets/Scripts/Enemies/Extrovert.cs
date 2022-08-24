@@ -66,7 +66,7 @@ public class Extrovert : MonoBehaviour
             float angleBetweenGuardAndPlayer = Vector3.Angle(transform.forward, dirToPlayer);
             if (angleBetweenGuardAndPlayer < viewAngle / 2f)
             {
-                if(!Physics.Linecast(transform.position, player.position, viewMask))
+                if(!Physics.Linecast(transform.Find("LookPos").position, player.position, viewMask))
                 {
                     return true;
                 }
