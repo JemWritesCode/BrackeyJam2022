@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    public bool isInBattle = false;
-    // Start is called before the first frame update
+    public bool isInBattle;
     void Start()
     {
             Extrovert.OnGuardHasSpottedPlayer += StartBattle;
@@ -14,17 +13,13 @@ public class SceneManagement : MonoBehaviour
 
     void StartBattle()
     {
-        if (!isInBattle)
+        if (!isInBattle) //if you're not already in battle, then load the battle scene
         {
             string battleSceneName = "2-ConversationBattle";
-            Debug.Log("sceneName to load:" + battleSceneName);
-            SceneManager.LoadScene(battleSceneName);
+            isInBattle = true;
+            SceneManager.LoadScene(battleSceneName, LoadSceneMode.Additive);
         }
     }
 
-    void EndBattle()
-    {
-        isInBattle = false;
-    }
 
 }

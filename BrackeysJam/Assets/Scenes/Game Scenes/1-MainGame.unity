@@ -759,7 +759,7 @@ GameObject:
   - component: {fileID: 1670541799}
   m_Layer: 0
   m_Name: SceneManager
-  m_TagString: Untagged
+  m_TagString: SceneManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -776,6 +776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a61d7dd520ad45343a9c692316127840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInBattle: 0
 --- !u!4 &1670541800
 Transform:
   m_ObjectHideFlags: 0
