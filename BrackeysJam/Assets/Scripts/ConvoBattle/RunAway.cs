@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class RunAway : MonoBehaviour
-{
-    SceneManagement sceneManagement;
+public class RunAway : MonoBehaviour {
+  private SceneManagement _sceneManagement;
 
-    public void RunAwayEndBattle()
-    {
-        GameObject sceneManager = GameObject.Find("SceneManager");
-        sceneManagement = sceneManager.GetComponent<SceneManagement>();
-        sceneManagement.EndBattle();
-    }
+  public void Awake() {
+    _sceneManagement = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneManagement>();
+  }
+
+  public void RunAwayEndBattle() {
+    _sceneManagement.EndBattle();
+  }
 }
