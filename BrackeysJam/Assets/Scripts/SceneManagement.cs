@@ -9,7 +9,8 @@ public class SceneManagement : MonoBehaviour
 
     void Start()
     {
-            Extrovert.OnGuardHasSpottedPlayer += StartBattle;
+        SceneManager.LoadScene("1.5-GameUIScene", LoadSceneMode.Additive);
+        Extrovert.OnGuardHasSpottedPlayer += StartBattle;
     }
 
     void StartBattle(Extrovert extrovert)
@@ -35,5 +36,10 @@ public class SceneManagement : MonoBehaviour
     void setExtrovertCooldownFalse()
     {
         extrovertThatStartedBattle.isOnBattleCooldown = false;
+    }
+
+    void PauseLevel()
+    {
+        
     }
 }

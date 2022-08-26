@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Scenes/2-ConversationBattle.unity
     guid: 39ea61e83521b7d4f83e7c349f705c94
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/1.5-GameUIScene.unity
+    guid: 6c19be229e0f4234d92bca4116483630
   m_configObjects: {}
