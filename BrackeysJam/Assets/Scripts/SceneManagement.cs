@@ -1,22 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
     public bool isInBattle;
-
+    public Extrovert extrovertThatStartedBattle;
 
     void Start()
     {
             Extrovert.OnGuardHasSpottedPlayer += StartBattle;
     }
 
-    void StartBattle()
+    void StartBattle(Extrovert extrovert)
     {
         if (!isInBattle)
         {
+            extrovertThatStartedBattle = extrovert;
             string battleSceneName = "2-ConversationBattle";
             isInBattle = true;
             //TODO Pause the Game

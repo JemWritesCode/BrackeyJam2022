@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Extrovert : MonoBehaviour
 {
-    public static event System.Action OnGuardHasSpottedPlayer; //mentioned in ep12
+    public static event System.Action<Extrovert> OnGuardHasSpottedPlayer; //mentioned in ep12
 
     public float speed = 5;
     public float waitTime = .3f;
@@ -53,10 +53,7 @@ public class Extrovert : MonoBehaviour
 
         if (playerVisibleTimer >= timeToSpotPlayer)
         {
-            if (OnGuardHasSpottedPlayer != null)
-            {
-                OnGuardHasSpottedPlayer();
-            }
+            OnGuardHasSpottedPlayer?.Invoke(this);
         }
     }
 
