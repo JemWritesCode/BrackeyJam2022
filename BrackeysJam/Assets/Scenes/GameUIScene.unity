@@ -1077,6 +1077,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1146812635}
+  - component: {fileID: 1146812636}
   m_Layer: 5
   m_Name: SocialBattery
   m_TagString: Untagged
@@ -1105,6 +1106,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &1146812636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146812634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4cb4df2b43f054b9112bfe7f562014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BatteryFill>k__BackingField: {fileID: 1658894366}
+  <SetFillDuration>k__BackingField: 1
+  <SetFillEase>k__BackingField: 9
+  <SetFillFlashCount>k__BackingField: 5
+  <IncreaseFillColor>k__BackingField: {r: 0.16470587, g: 0.7633334, b: 1, a: 0.84313726}
+  <DecreaseFillColor>k__BackingField: {r: 1, g: 0.5684314, b: 0.16470587, a: 0.83137256}
 --- !u!1 &1159753609
 GameObject:
   m_ObjectHideFlags: 0
@@ -2261,7 +2280,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: c7ade6ec66906e24e89b461a9e8b6370, type: 3}
   m_FillDirection: 2
-  m_FillAmount: 0.423
+  m_FillAmount: 0.353
   m_FillCenter: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1708771528

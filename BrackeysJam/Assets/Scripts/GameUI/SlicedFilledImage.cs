@@ -66,10 +66,9 @@ public class SlicedFilledImage : MaskableGraphic, ISerializationCallbackReceiver
 	private static readonly Vector2[] s_SlicedVertices = new Vector2[4];
 	private static readonly Vector2[] s_SlicedUVs = new Vector2[4];
 
-#pragma warning disable 1692
 #pragma warning disable IDE1006 // Suppress 'Naming rule violation' warnings
 #pragma warning disable 0649
-	[SerializeField]
+  [SerializeField]
 	private Sprite m_Sprite;
 	public Sprite sprite {
 		get { return m_Sprite; }
@@ -187,9 +186,8 @@ public class SlicedFilledImage : MaskableGraphic, ISerializationCallbackReceiver
 
 	public float alphaHitTestMinimumThreshold { get; set; }
 #pragma warning restore IDE1006
-#pragma warning restore 1692
 
-	protected SlicedFilledImage() {
+  protected SlicedFilledImage() {
 		useLegacyMeshGeneration = false;
 	}
 
@@ -255,7 +253,7 @@ public class SlicedFilledImage : MaskableGraphic, ISerializationCallbackReceiver
 			int spriteH = Mathf.RoundToInt(size.y);
 
 			// Image's dimensions used for drawing. X = left, Y = bottom, Z = right, W = top.
-			Vector4 vertices = new Vector4(
+			Vector4 vertices = new(
 				rect.x + rect.width * (padding.x / spriteW),
 				rect.y + rect.height * (padding.y / spriteH),
 				rect.x + rect.width * ((spriteW - padding.z) / spriteW),
@@ -268,7 +266,7 @@ public class SlicedFilledImage : MaskableGraphic, ISerializationCallbackReceiver
 		Vector4 inner = Sprites.DataUtility.GetInnerUV(activeSprite);
 		Vector4 border = GetAdjustedBorders(activeSprite.border / pixelsPerUnit, rect);
 
-		padding = padding / pixelsPerUnit;
+		padding /= pixelsPerUnit;
 
 		s_SlicedVertices[0] = new Vector2(padding.x, padding.y);
 		s_SlicedVertices[3] = new Vector2(rect.width - padding.z, rect.height - padding.w);
@@ -338,8 +336,8 @@ public class SlicedFilledImage : MaskableGraphic, ISerializationCallbackReceiver
 				if (sliceStart >= m_FillAmount)
 					continue;
 
-				Vector4 vertices = new Vector4(s_SlicedVertices[x].x, s_SlicedVertices[y].y, s_SlicedVertices[x2].x, s_SlicedVertices[y2].y);
-				Vector4 uvs = new Vector4(s_SlicedUVs[x].x, s_SlicedUVs[y].y, s_SlicedUVs[x2].x, s_SlicedUVs[y2].y);
+				Vector4 vertices = new(s_SlicedVertices[x].x, s_SlicedVertices[y].y, s_SlicedVertices[x2].x, s_SlicedVertices[y2].y);
+				Vector4 uvs = new(s_SlicedUVs[x].x, s_SlicedUVs[y].y, s_SlicedUVs[x2].x, s_SlicedUVs[y2].y);
 				float fillAmount = (m_FillAmount - sliceStart) / (sliceEnd - sliceStart);
 
 				GenerateFilledSprite(vh, vertices, uvs, fillAmount);
@@ -459,11 +457,12 @@ public class SlicedFilledImage : MaskableGraphic, ISerializationCallbackReceiver
 		if (activeSprite == null)
 			return true;
 
-		Vector2 local;
-		if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPoint, eventCamera, out local))
+    if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
+						rectTransform, screenPoint, eventCamera, out Vector2 local)) {
 			return false;
+		}
 
-		Rect rect = GetPixelAdjustedRect();
+    Rect rect = GetPixelAdjustedRect();
 
 		// Convert to have lower left corner as reference point.
 		local.x += rectTransform.pivot.x * rect.width;
@@ -488,7 +487,7 @@ public class SlicedFilledImage : MaskableGraphic, ISerializationCallbackReceiver
 
 		// Normalize local coordinates.
 		Rect textureRect = activeSprite.textureRect;
-		Vector2 normalized = new Vector2(local.x / textureRect.width, local.y / textureRect.height);
+		Vector2 normalized = new(local.x / textureRect.width, local.y / textureRect.height);
 
 		// Convert to texture space.
 		float x = Mathf.Lerp(textureRect.x, textureRect.xMax, normalized.x) / activeSprite.texture.width;
@@ -530,7 +529,7 @@ public class SlicedFilledImage : MaskableGraphic, ISerializationCallbackReceiver
 	private bool m_Tracked = false;
 
 #if UNITY_2017_4 || UNITY_2018_2_OR_NEWER
-	private static List<SlicedFilledImage> m_TrackedTexturelessImages = new List<SlicedFilledImage>();
+	private static readonly List<SlicedFilledImage> m_TrackedTexturelessImages = new();
 	private static bool s_Initialized;
 #endif
 
