@@ -22,6 +22,8 @@ public class Extrovert : MonoBehaviour
     Transform player;
     Color originalSpotlightColour;
 
+    public bool isOnBattleCooldown = false;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -60,15 +62,18 @@ public class Extrovert : MonoBehaviour
 
     bool CanSeePlayer()
     {
-        if (Vector3.Distance(transform.position, player.position) < viewDistance)
+        if (!isOnBattleCooldown)
         {
-            Vector3 dirToPlayer = (player.position - transform.position).normalized;
-            float angleBetweenGuardAndPlayer = Vector3.Angle(transform.forward, dirToPlayer);
-            if (angleBetweenGuardAndPlayer < viewAngle / 2f)
+            if (Vector3.Distance(transform.position, player.position) < viewDistance)
             {
-                if(!Physics.Linecast(transform.Find("LookPos").position, player.position, viewMask))
+                Vector3 dirToPlayer = (player.position - transform.position).normalized;
+                float angleBetweenGuardAndPlayer = Vector3.Angle(transform.forward, dirToPlayer);
+                if (angleBetweenGuardAndPlayer < viewAngle / 2f)
                 {
-                    return true;
+                    if (!Physics.Linecast(transform.Find("LookPos").position, player.position, viewMask))
+                    {
+                        return true;
+                    }
                 }
             }
         }

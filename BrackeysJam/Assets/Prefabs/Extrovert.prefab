@@ -4341,11 +4341,12 @@ MonoBehaviour:
   turnSpeed: 90
   timeToSpotPlayer: 0.001
   spotlight: {fileID: 844259763426781898}
-  viewDistance: 7
+  viewDistance: 6
   viewMask:
     serializedVersion: 2
     m_Bits: 64
   pathHolder: {fileID: 1734273545}
+  isOnBattleCooldown: 0
 --- !u!1 &844259763116521181
 GameObject:
   m_ObjectHideFlags: 0
