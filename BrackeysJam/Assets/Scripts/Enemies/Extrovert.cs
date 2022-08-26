@@ -51,6 +51,11 @@ public class Extrovert : MonoBehaviour
         playerVisibleTimer = Mathf.Clamp(playerVisibleTimer, 0, timeToSpotPlayer);
         spotlight.color = Color.Lerp(originalSpotlightColour, Color.red, playerVisibleTimer / timeToSpotPlayer);
 
+        if(isOnBattleCooldown == true)
+        {
+            spotlight.color = Color.blue;
+        }
+
         if (playerVisibleTimer >= timeToSpotPlayer)
         {
             OnGuardHasSpottedPlayer?.Invoke(this);

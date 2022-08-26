@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class SceneManagement : MonoBehaviour
 {
     public bool isInBattle;
+    public float extrovertCooldownTime = 5f;
     public Extrovert extrovertThatStartedBattle;
 
     void Start()
@@ -16,19 +17,23 @@ public class SceneManagement : MonoBehaviour
         if (!isInBattle)
         {
             extrovertThatStartedBattle = extrovert;
-            string battleSceneName = "2-ConversationBattle";
             isInBattle = true;
             //TODO Pause the Game
-            SceneManager.LoadScene(battleSceneName, LoadSceneMode.Additive);
+            SceneManager.LoadScene("2-ConversationBattle", LoadSceneMode.Additive);
         }
     }
 
     public void EndBattle()
     {
         isInBattle = false;
-        //isOnBattleCooldown = true;
+        extrovertThatStartedBattle.isOnBattleCooldown = true;
+        Invoke("setExtrovertCooldownFalse", extrovertCooldownTime);
         //TODO Resume the Game
         SceneManager.UnloadSceneAsync("2-ConversationBattle");
     }
 
+    void setExtrovertCooldownFalse()
+    {
+        extrovertThatStartedBattle.isOnBattleCooldown = false;
+    }
 }
