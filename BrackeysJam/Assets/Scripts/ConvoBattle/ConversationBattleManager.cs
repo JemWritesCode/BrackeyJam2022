@@ -1,5 +1,5 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEditor;
 
@@ -9,6 +9,28 @@ public class ConversationBattleManager : MonoBehaviour {
   [field: SerializeField]
   public List<EmojiBattleLaneController> EmojiBattleLaneControllers { get; private set; } = new();
 
+  void Awake() {
+    foreach (EmojiBattleLaneController controller in EmojiBattleLaneControllers) {
+      controller.OnEmojiChildHitAttempt += ProcessEmojiChildHitAttempt;
+    }
+
+    StartCoroutine(GenerateRandomEmojis(10));
+  }
+
+  IEnumerator GenerateRandomEmojis(int count) {
+    yield return null;
+
+    for (int i = 0; i < count; i++) {
+      yield return new WaitForSeconds(Random.Range(2f, 5f));
+
+      int index = Random.Range(0, EmojiBattleLaneControllers.Count);
+      EmojiBattleLaneControllers[index].GenerateEmoji();
+    }
+  }
+
+  public void ProcessEmojiChildHitAttempt(EmojiBattleLaneController controller, Rect hitRect) {
+    Debug.Log($"Get rect son: {hitRect} from controller ({controller.name}");
+  }
 }
 
 [CustomEditor(typeof(ConversationBattleManager))]

@@ -1,5 +1,8 @@
 using DG.Tweening;
 
+using System;
+using System.Collections.Generic;
+
 using UnityEditor;
 
 using UnityEngine;
@@ -17,14 +20,22 @@ public class EmojiBattleLaneController : MonoBehaviour {
   [field: SerializeField, Header("Emoji")]
   public TMPro.TMP_Text EmojiIcon { get; private set; }
 
+  [field: SerializeField, Min(0f)]
+  public float EmojiChildMovementDuration { get; private set; } = 10f;
+
   [field: SerializeField]
   public Ease EmojiChildMovementEase { get; private set; } = Ease.Linear;
 
   [field: SerializeField, Header("HitArea")]
   public GameObject HitArea { get; private set; }
 
+  public event Action<EmojiBattleLaneController, Rect> OnEmojiChildHitAttempt;
+
   private Tweener _laneKeyDownTweener;
   private Sequence _generateEmojiIconSequence;
+  private RectTransform _hitAreaRectTransform;
+
+  private readonly List<GameObject> _emojiChildren = new();
 
   void Awake() {
     _laneKeyDownTweener =
@@ -37,14 +48,28 @@ public class EmojiBattleLaneController : MonoBehaviour {
         DOTween.Sequence()
             .Insert(0f, EmojiIcon.transform.DOPunchScale(new Vector3(1.05f, 1.05f, 1.05f), 0.5f, 5, 0.5f))
             .Insert(0f, EmojiIcon.DOFade(1f, 0.25f).SetLoops(2, LoopType.Yoyo))
-            .OnComplete(() => GenerateEmojiChild())
+            .OnComplete(() => GenerateEmojiChild(EmojiChildMovementDuration))
             .SetAutoKill(false)
             .Pause();
+
+    _hitAreaRectTransform = HitArea.GetComponent<RectTransform>();
   }
 
   void Update() {
     if (Input.GetKeyDown(LaneKeyboardKey)) {
       _laneKeyDownTweener.Restart();
+
+      CheckForChildHit();
+    }
+  }
+
+  public void CheckForChildHit() {
+    if (_emojiChildren.Count > 0 && _emojiChildren[0]) {
+      GameObject child = _emojiChildren[0];
+      child.GetComponent<RectTransform>().rect.Intersects(_hitAreaRectTransform.rect, out Rect hitRect);
+
+      OnEmojiChildHitAttempt?.Invoke(this, hitRect);
+      DestroyChild(child);
     }
   }
 
@@ -52,20 +77,31 @@ public class EmojiBattleLaneController : MonoBehaviour {
     _generateEmojiIconSequence.Restart();
   }
 
-  public void GenerateEmojiChild() {
+  public void GenerateEmojiChild(float duration) {
     TMPro.TMP_Text child = Instantiate(EmojiIcon, EmojiIcon.transform.parent);
+    _emojiChildren.Add(child.gameObject);
+
     child.alpha = 1f;
-    child.transform.DOScale(2f, 2f);
+    child.transform.DOScale(2f, 2f).SetLink(child.gameObject);
 
     DOTween.Sequence()
-        .Append(child.transform.DOShakeRotation(2f, new Vector3(0f, 0f, 15f)))
-        .AppendInterval(1.5f)
-        .SetLoops(-1, LoopType.Yoyo);
+        .Append(child.transform.DOShakeRotation(2f, new Vector3(0f, 0f, 35f)))
+        .AppendInterval(0.5f)
+        .SetLoops(-1, LoopType.Yoyo)
+        .SetLink(child.gameObject);
 
     child.transform
-        .DOLocalMove(HitArea.transform.localPosition, 15f)
+        .DOLocalMove(HitArea.transform.localPosition, duration)
         .SetEase(EmojiChildMovementEase)
-        .OnComplete(() => Destroy(child));
+        .OnComplete(() => CheckForChildHit())
+        .SetLink(child.gameObject);
+  }
+
+  public void DestroyChild(GameObject child) {
+    if (child) {
+      _emojiChildren.Remove(child);
+      Destroy(child);
+    }
   }
 }
 
