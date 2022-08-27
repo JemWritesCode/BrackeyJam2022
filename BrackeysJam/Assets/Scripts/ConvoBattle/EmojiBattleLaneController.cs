@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEditor;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EmojiBattleLaneController : MonoBehaviour {
   [field: SerializeField, Header("Key")]
@@ -29,7 +30,8 @@ public class EmojiBattleLaneController : MonoBehaviour {
   [field: SerializeField, Header("HitArea")]
   public GameObject HitArea { get; private set; }
 
-  public event Action<EmojiBattleLaneController, Rect> OnEmojiChildHitAttempt;
+  [field: SerializeField, Header("Events")]
+  public UnityEvent<EmojiBattleLaneController, GameObject, bool> OnEmojiChildHitAttempt { get; private set; }
 
   private Tweener _laneKeyDownTweener;
   private Sequence _generateEmojiIconSequence;
@@ -63,13 +65,18 @@ public class EmojiBattleLaneController : MonoBehaviour {
     }
   }
 
-  public void CheckForChildHit() {
+  public void CheckForChildHit(bool performCheck = true) {
     if (_emojiChildren.Count > 0 && _emojiChildren[0]) {
       GameObject child = _emojiChildren[0];
-      child.GetComponent<RectTransform>().rect.Intersects(_hitAreaRectTransform.rect, out Rect hitRect);
+      _emojiChildren.RemoveAt(0);
 
-      OnEmojiChildHitAttempt?.Invoke(this, hitRect);
-      DestroyChild(child);
+      if (performCheck
+          && Vector3.Distance(HitArea.transform.localPosition, child.transform.localPosition)
+                < _hitAreaRectTransform.sizeDelta.y * 2) {
+        OnEmojiChildHitAttempt?.Invoke(this, child, true);
+      } else {
+        OnEmojiChildHitAttempt?.Invoke(this, child, false);
+      }
     }
   }
 
@@ -82,7 +89,7 @@ public class EmojiBattleLaneController : MonoBehaviour {
     _emojiChildren.Add(child.gameObject);
 
     child.alpha = 1f;
-    child.transform.DOScale(2f, 2f).SetLink(child.gameObject);
+    child.transform.DOScale(1.75f, 2f).SetLink(child.gameObject);
 
     DOTween.Sequence()
         .Append(child.transform.DOShakeRotation(2f, new Vector3(0f, 0f, 35f)))
@@ -93,7 +100,7 @@ public class EmojiBattleLaneController : MonoBehaviour {
     child.transform
         .DOLocalMove(HitArea.transform.localPosition, duration)
         .SetEase(EmojiChildMovementEase)
-        .OnComplete(() => CheckForChildHit())
+        .OnComplete(() => CheckForChildHit(performCheck: false))
         .SetLink(child.gameObject);
   }
 
