@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 93306167}
   - component: {fileID: 93306166}
   m_Layer: 5
-  m_Name: Checkmark
+  m_Name: BFF.Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 184452590}
   - component: {fileID: 184452591}
   m_Layer: 5
-  m_Name: TaskRow.Example2
+  m_Name: TaskRow.BFF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -460,7 +460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &599707693
 RectTransform:
   m_ObjectHideFlags: 0
