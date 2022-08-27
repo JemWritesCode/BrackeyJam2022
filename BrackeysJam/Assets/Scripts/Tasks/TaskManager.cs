@@ -38,7 +38,7 @@ public class TaskManager : MonoBehaviour
 
     public void SetupFindKittensTask()
     {
-        bunchOfKittens = GameObject.Find("BunchOfKittens");
+        bunchOfKittens = GameObject.Find("MainKitten");
         kittenTask = bunchOfKittens.GetComponent<KittenTask>();
         kittenTask.kittenCheckmark = GameObject.Find("kit.check");
         kittenTask.kittenCheckmark.SetActive(false);

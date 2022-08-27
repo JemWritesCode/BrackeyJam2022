@@ -740,6 +740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerRadius: 2
   bffCheckmark: {fileID: 0}
+  soundComplete: {fileID: 8300000, guid: 02276d7cd272be54e83bee7a725ae516, type: 3}
 --- !u!1 &1695232857639293292
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,12 +8,30 @@ public class KittenTask : MonoBehaviour
 
     public GameObject kittenCheckmark;
 
+    public AudioClip soundComplete;
+    private bool hasPlayed = false;
+
+    private void Start()
+    {
+        GetComponent<AudioSource>().clip = soundComplete;
+    }
+
     void Update()
     {
         if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= kittenTriggerRadius)
         {
             kittenCheckmark.SetActive(true);
-            // Make a task complete sound
+            PlayKittenSoundOnce();
+            
+        }
+    }
+
+    void PlayKittenSoundOnce()
+    {
+        if (!hasPlayed)
+        {
+            AudioSource.PlayClipAtPoint(soundComplete, transform.position);
+            hasPlayed = true;
         }
     }
 }
