@@ -12,18 +12,25 @@ public class ConversationBattleManager : MonoBehaviour {
 }
 
 [CustomEditor(typeof(ConversationBattleManager))]
-[CanEditMultipleObjects]
 public class ConversationBattleManagerEditor : Editor {
-  private List<EmojiBattleLaneController> _controllers;
+  private readonly List<EmojiBattleLaneController> _controllers = new();
 
-  void Awake() {
-    _controllers = Selection.activeGameObject.GetComponent<ConversationBattleManager>().EmojiBattleLaneControllers;
+  public void OnEnable() {
+    _controllers.Clear();
+
+    if (Selection.activeGameObject.TryGetComponent(out ConversationBattleManager manager)) {
+      _controllers.AddRange(manager.EmojiBattleLaneControllers);
+    };
   }
 
   public override void OnInspectorGUI() {
     base.OnInspectorGUI();
 
     foreach (EmojiBattleLaneController controller in _controllers) {
+      if (!controller) {
+        continue;
+      }
+
       if (EditorGUILayout.BeginFoldoutHeaderGroup(true, controller.name)) {
         if (GUILayout.Button("GenerateEmoji")) {
           controller.GenerateEmoji();

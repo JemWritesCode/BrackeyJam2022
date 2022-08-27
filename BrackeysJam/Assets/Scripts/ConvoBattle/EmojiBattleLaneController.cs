@@ -56,7 +56,12 @@ public class EmojiBattleLaneController : MonoBehaviour {
     TMPro.TMP_Text child = Instantiate(EmojiIcon, EmojiIcon.transform.parent);
     child.alpha = 1f;
     child.transform.DOScale(2f, 2f);
-    child.transform.DOShakeRotation(2f, new Vector3(0f, 0f, 90f)).SetLoops(-1, LoopType.Yoyo);
+
+    DOTween.Sequence()
+        .Append(child.transform.DOShakeRotation(2f, new Vector3(0f, 0f, 15f)))
+        .AppendInterval(1.5f)
+        .SetLoops(-1, LoopType.Yoyo);
+
     child.transform
         .DOLocalMove(HitArea.transform.localPosition, 15f)
         .SetEase(EmojiChildMovementEase)
