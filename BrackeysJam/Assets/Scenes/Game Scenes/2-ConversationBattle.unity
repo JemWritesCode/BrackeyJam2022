@@ -593,6 +593,7 @@ MonoBehaviour:
   <KeyIcon>k__BackingField: {fileID: 1740306849}
   <KeyIconLabel>k__BackingField: {fileID: 1323976185}
   <EmojiIcon>k__BackingField: {fileID: 2141330381}
+  <EmojiChildMovementDuration>k__BackingField: 10
   <EmojiChildMovementEase>k__BackingField: 1
   <HitArea>k__BackingField: {fileID: 994344283}
 --- !u!1 &331235321
@@ -1346,6 +1347,7 @@ MonoBehaviour:
   <KeyIcon>k__BackingField: {fileID: 803804677}
   <KeyIconLabel>k__BackingField: {fileID: 436711973}
   <EmojiIcon>k__BackingField: {fileID: 1029940225}
+  <EmojiChildMovementDuration>k__BackingField: 10
   <EmojiChildMovementEase>k__BackingField: 4
   <HitArea>k__BackingField: {fileID: 870452769}
 --- !u!114 &873402634
@@ -1473,6 +1475,7 @@ GameObject:
   - component: {fileID: 994344284}
   - component: {fileID: 994344286}
   - component: {fileID: 994344285}
+  - component: {fileID: 994344287}
   m_Layer: 5
   m_Name: HitArea
   m_TagString: Untagged
@@ -1538,6 +1541,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994344283}
   m_CullTransparentMesh: 1
+--- !u!114 &994344287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994344283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb48d82dc0e94a2b9246d17d04f8748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Direction: 0
+  m_Color1: {r: 1, g: 1, b: 1, a: 1}
+  m_Color2: {r: 1, g: 1, b: 1, a: 1}
+  m_Color3: {r: 1, g: 1, b: 1, a: 1}
+  m_Color4: {r: 1, g: 1, b: 1, a: 1}
+  m_Rotation: 0
+  m_Offset1: 0
+  m_Offset2: 0
+  m_GradientStyle: 0
+  m_ColorSpace: -1
+  m_IgnoreAspectRatio: 1
 --- !u!1 &1029940223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,6 +1862,7 @@ MonoBehaviour:
   <KeyIcon>k__BackingField: {fileID: 1858341049}
   <KeyIconLabel>k__BackingField: {fileID: 2130965434}
   <EmojiIcon>k__BackingField: {fileID: 143586090}
+  <EmojiChildMovementDuration>k__BackingField: 10
   <EmojiChildMovementEase>k__BackingField: 1
   <HitArea>k__BackingField: {fileID: 1435382897}
 --- !u!114 &1243095711
@@ -2825,6 +2852,7 @@ MonoBehaviour:
   <KeyIcon>k__BackingField: {fileID: 1056217587}
   <KeyIconLabel>k__BackingField: {fileID: 551480291}
   <EmojiIcon>k__BackingField: {fileID: 72841896}
+  <EmojiChildMovementDuration>k__BackingField: 10
   <EmojiChildMovementEase>k__BackingField: 1
   <HitArea>k__BackingField: {fileID: 905134195}
 --- !u!114 &1561918845
