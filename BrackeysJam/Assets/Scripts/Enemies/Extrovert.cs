@@ -23,9 +23,12 @@ public class Extrovert : MonoBehaviour
     Color originalSpotlightColour;
 
     public bool isOnBattleCooldown = false;
+    public bool extrovertSoundPlayed = false;
+
 
     private void Start()
     {
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         viewAngle = spotlight.spotAngle;
         originalSpotlightColour = spotlight.color;
@@ -74,6 +77,11 @@ public class Extrovert : MonoBehaviour
                 {
                     if (!Physics.Linecast(transform.Find("LookPos").position, player.position, viewMask))
                     {
+                        if (!extrovertSoundPlayed)
+                        {
+                            AudioSource.PlayClipAtPoint(GetComponent<AudioSource>().clip, player.position);
+                            extrovertSoundPlayed = true;
+                        }
                         return true;
                     }
                 }

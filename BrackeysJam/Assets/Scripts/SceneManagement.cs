@@ -21,6 +21,7 @@ public class SceneManagement : MonoBehaviour
             isInBattle = true;
             //TODO Pause the Game
             SceneManager.LoadScene("2-ConversationBattle", LoadSceneMode.Additive);
+            extrovertThatStartedBattle.extrovertSoundPlayed = true;
         }
     }
 
@@ -31,6 +32,7 @@ public class SceneManagement : MonoBehaviour
         Invoke("setExtrovertCooldownFalse", extrovertCooldownTime);
         //TODO Resume the Game
         SceneManager.UnloadSceneAsync("2-ConversationBattle");
+        extrovertThatStartedBattle.extrovertSoundPlayed = false;
     }
 
     void setExtrovertCooldownFalse()
