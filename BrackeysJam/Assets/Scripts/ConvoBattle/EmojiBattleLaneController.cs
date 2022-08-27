@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEditor;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EmojiBattleLaneController : MonoBehaviour {
   [field: SerializeField, Header("Key")]
@@ -29,7 +30,8 @@ public class EmojiBattleLaneController : MonoBehaviour {
   [field: SerializeField, Header("HitArea")]
   public GameObject HitArea { get; private set; }
 
-  public event Action<EmojiBattleLaneController, Rect> OnEmojiChildHitAttempt;
+  [field: SerializeField, Header("Events")]
+  public UnityEvent<EmojiBattleLaneController, Rect> OnEmojiChildHitAttempt { get; private set; }
 
   private Tweener _laneKeyDownTweener;
   private Sequence _generateEmojiIconSequence;

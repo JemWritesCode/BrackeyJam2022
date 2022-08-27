@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 
 public static class UIExtensions {
+  public static Color SetAlpha(this Color color, float alpha) {
+    color.a = alpha;
+    return color;
+  }
+
   public static bool Intersects(this Rect r1, Rect r2, out Rect area) {
     area = default;
 
