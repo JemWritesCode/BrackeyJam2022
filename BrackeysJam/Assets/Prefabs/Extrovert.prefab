@@ -4341,7 +4341,7 @@ MonoBehaviour:
   turnSpeed: 90
   timeToSpotPlayer: 0.001
   spotlight: {fileID: 844259763426781898}
-  viewDistance: 4.35
+  viewDistance: 5
   viewMask:
     serializedVersion: 2
     m_Bits: 64
@@ -7289,7 +7289,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844259763116521339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000021076, y: 0.348, z: -0.0041569}
+  m_LocalPosition: {x: 0.000021076, y: 0.794, z: -0.0041569}
   m_LocalScale: {x: 0.96254194, y: 0.96254194, z: 0.96254194}
   m_ConstrainProportionsScale: 0
   m_Children: []

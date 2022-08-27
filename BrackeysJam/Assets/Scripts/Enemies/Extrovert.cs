@@ -131,6 +131,6 @@ public class Extrovert : MonoBehaviour
         Gizmos.DrawLine(previousPosition, startPosition);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
+        Gizmos.DrawRay(transform.Find("LookPos").position, transform.forward * viewDistance);
     }
 }
