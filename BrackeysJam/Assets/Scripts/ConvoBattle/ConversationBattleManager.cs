@@ -40,15 +40,15 @@ public class ConversationBattleManager : MonoBehaviour {
     foreach (EmojiBattleLaneController controller in EmojiBattleLaneControllers) {
       controller.GetComponent<CanvasGroup>().alpha = 0f;
     }
+  }
 
+  public void AnimateBattleStart() {
     DOTween.Sequence()
         .SetLink(BattleTitle.gameObject)
         .Insert(0f, BattleTitle.transform.DOScale(1.1f, 3f))
         .AppendInterval(1f)
         .SetLoops(-1, LoopType.Yoyo);
-  }
 
-  public void AnimateBattleStart() {
     Sequence sequence =
         DOTween.Sequence()
             .Insert(0f, BattleBackground.DOFade(1f, 3f).From(0f))
@@ -70,16 +70,22 @@ public class ConversationBattleManager : MonoBehaviour {
 
   public void ProcessEmojiChildHitAttempt
       (EmojiBattleLaneController controller, GameObject emojiChild, bool isHit) {
-    Debug.Log($"Get rect son: {isHit} from controller ({controller.name}");
+    GameObject popup =
+        Instantiate(
+            isHit ? HitPopup : MissPopup,
+            emojiChild.transform.position,
+            Quaternion.identity,
+            emojiChild.transform.parent);
 
-    GameObject popup = Instantiate(isHit ? HitPopup : MissPopup, emojiChild.transform, false);
-    popup.transform.localPosition = Vector3.zero;
+    DOTween.Kill(emojiChild.transform);
+
     DOTween.Sequence()
         .SetLink(popup)
         .Insert(0f, popup.transform.DOPunchScale(new Vector3(1.1f, 1.1f, 1.1f), 1f, 5, 0))
-        //.Insert(0f, popup.transform.DOMoveY(25f, 3f).SetRelative(true))
+        .Insert(0f, popup.transform.DOMoveY(25f, 3f).SetRelative(true))
         .Insert(0f, emojiChild.transform.DOScale(Vector3.zero, 3f))
         .OnComplete(() => {
+          Destroy(popup);
           controller.DestroyChild(emojiChild);
         });
   }
