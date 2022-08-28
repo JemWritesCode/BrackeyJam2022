@@ -1,3 +1,5 @@
+using System.Collections;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,11 +29,30 @@ public class SceneManagement : MonoBehaviour
             PauseLevel();
             SceneManager.LoadScene("2-ConversationBattle", LoadSceneMode.Additive);
             extrovertThatStartedBattle.extrovertSoundPlayed = true;
+
+            // TODO(Jemmeh): here's where you can trigger the battle with custom values
+            StartCoroutine(StartBattleWhenManagerFound(emojiCount: 10, battleDuration: 20f));
         }
     }
 
-    public void EndBattle()
+    IEnumerator StartBattleWhenManagerFound(int emojiCount, float battleDuration) {
+      while (true) {
+        yield return null;
+        GameObject battleManagerObj = GameObject.FindGameObjectWithTag("ConversationBattleManager");
+
+        if (battleManagerObj) {
+          Debug.Log($"Found ConversationBattleManager!");
+          battleManagerObj.GetComponent<ConversationBattleManager>().BattleStart(emojiCount, battleDuration);
+          yield break;
+        }
+      }
+    }
+
+    public void EndBattle(int emojiMissCount, bool isRunningAway)
     {
+        // TODO(Jemmeh): isRunningAway=true if they hit the runAwayButton
+        // TODO(Jemmeh): emojiMissCount wikll start at 0 and more if they miss emojis
+        Debug.Log($"Ending Battle: emojiMissCount is: {emojiMissCount}, ranAway: {isRunningAway}");
         isInBattle = false;
         extrovertThatStartedBattle.isOnBattleCooldown = true;
         Invoke("setExtrovertCooldownFalse", extrovertCooldownTime);
