@@ -12,6 +12,8 @@ public class HealthManager : MonoBehaviour
     {
         socialBattery = GameObject.Find("SocialBattery");
         socialBatteryManager = socialBattery.GetComponent<SocialBatteryManager>();
+
+        
     }
 
     private void Update()
@@ -28,9 +30,5 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    void GoToWinScreen()
-    {
-        // if all the tasks are completed and they go to the exit door
-    }
 
 }

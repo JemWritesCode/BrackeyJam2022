@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TaskManager : MonoBehaviour
 {
@@ -18,6 +19,14 @@ public class TaskManager : MonoBehaviour
         SetupFoodTask();
         SetupBestFriendTask();
         SetupFindKittensTask();
+    }
+
+    private void Update()
+    {
+        if(foodTask.FoodTaskCompleted && bestFriendTask.BestieTaskCompleted && kittenTask.KittensTaskCompleted)
+        {
+            SceneManager.LoadScene("3-Win");
+        }
     }
 
     public void SetupBestFriendTask()
@@ -43,5 +52,12 @@ public class TaskManager : MonoBehaviour
         kittenTask.kittenCheckmark = GameObject.Find("kit.check");
         kittenTask.kittenCheckmark.SetActive(false);
     }
+
+
+    void HandleWin()
+    {
+
+    }
+
 
 }

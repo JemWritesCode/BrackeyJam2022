@@ -11,6 +11,8 @@ public class FoodTask : MonoBehaviour
     public AudioClip soundComplete;
     private bool hasPlayed = false;
 
+    public bool FoodTaskCompleted = false;
+
     private void Start()
     {
         GetComponent<AudioSource>().clip = soundComplete;
@@ -22,6 +24,7 @@ public class FoodTask : MonoBehaviour
             foodCheckmark.SetActive(true);
             // Make a task complete sound
             PlayFoodSoundOnce();
+            FoodTaskCompleted = true;
         }
     }
 

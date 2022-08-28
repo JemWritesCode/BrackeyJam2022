@@ -11,6 +11,8 @@ public class BestFriendTask : MonoBehaviour
     public AudioClip soundComplete;
     private bool hasPlayed = false;
 
+    public bool BestieTaskCompleted = false;
+
     private void Start()
     {
         GetComponent<AudioSource>().clip = soundComplete;
@@ -22,6 +24,7 @@ public class BestFriendTask : MonoBehaviour
         {
             bffCheckmark.SetActive(true);
             PlayBestieSoundOnce();
+            BestieTaskCompleted = true;
         }
     }
 

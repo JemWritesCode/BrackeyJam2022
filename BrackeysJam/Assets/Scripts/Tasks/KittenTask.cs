@@ -11,6 +11,8 @@ public class KittenTask : MonoBehaviour
     public AudioClip soundComplete;
     private bool hasPlayed = false;
 
+    public bool KittensTaskCompleted = false;
+
     private void Start()
     {
         GetComponent<AudioSource>().clip = soundComplete;
@@ -22,7 +24,7 @@ public class KittenTask : MonoBehaviour
         {
             kittenCheckmark.SetActive(true);
             PlayKittenSoundOnce();
-            
+            KittensTaskCompleted = true;
         }
     }
 
