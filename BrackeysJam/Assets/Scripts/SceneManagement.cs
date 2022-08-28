@@ -55,4 +55,15 @@ public class SceneManagement : MonoBehaviour
     {
         playerMoveScript.isPaused = false;
     }
+
+
+    void GoToLoseScreen()
+    {
+        // if social battery reaches 0
+    }
+
+    void GoToWinScreen()
+    {
+        // if all the tasks are completed and they go to the exit door
+    }
 }
