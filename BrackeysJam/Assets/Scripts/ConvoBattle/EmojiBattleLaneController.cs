@@ -124,15 +124,15 @@ public class EmojiBattleLaneController : MonoBehaviour {
   }
 }
 
-[CustomEditor(typeof(EmojiBattleLaneController))]
-public class EmojiBattleLaneControllerEditor : Editor {
-  public override void OnInspectorGUI() {
-    base.OnInspectorGUI();
+//[CustomEditor(typeof(EmojiBattleLaneController))]
+//public class EmojiBattleLaneControllerEditor : Editor {
+//  public override void OnInspectorGUI() {
+//    base.OnInspectorGUI();
 
-    EditorGUILayout.Space(20f);
+//    EditorGUILayout.Space(20f);
 
-    if (GUILayout.Button("Generate")) {
-      Selection.activeGameObject.GetComponent<EmojiBattleLaneController>().GenerateEmoji();
-    }
-  }
-}
+//    if (GUILayout.Button("Generate")) {
+//      Selection.activeGameObject.GetComponent<EmojiBattleLaneController>().GenerateEmoji();
+//    }
+//  }
+//}
