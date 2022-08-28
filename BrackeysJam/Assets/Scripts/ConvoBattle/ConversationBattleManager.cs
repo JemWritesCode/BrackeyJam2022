@@ -191,48 +191,48 @@ public class ConversationBattleManager : MonoBehaviour {
   }
 }
 
-[CustomEditor(typeof(ConversationBattleManager))]
-public class ConversationBattleManagerEditor : Editor {
-  private readonly List<EmojiBattleLaneController> _controllers = new();
+//[CustomEditor(typeof(ConversationBattleManager))]
+//public class ConversationBattleManagerEditor : Editor {
+//  private readonly List<EmojiBattleLaneController> _controllers = new();
 
-  public void OnEnable() {
-    _controllers.Clear();
+//  public void OnEnable() {
+//    _controllers.Clear();
 
-    if (Selection.activeGameObject.TryGetComponent(out ConversationBattleManager manager)) {
-      _controllers.AddRange(manager.EmojiBattleLaneControllers);
-    };
-  }
+//    if (Selection.activeGameObject.TryGetComponent(out ConversationBattleManager manager)) {
+//      _controllers.AddRange(manager.EmojiBattleLaneControllers);
+//    };
+//  }
 
-  private float _battleDuration = 20f;
-  private int _battleEmojiCount = 10;
+//  private float _battleDuration = 20f;
+//  private int _battleEmojiCount = 10;
 
-  public override void OnInspectorGUI() {
-    base.OnInspectorGUI();
+//  public override void OnInspectorGUI() {
+//    base.OnInspectorGUI();
 
-    EditorGUILayout.Space(20f);
-    _battleDuration = EditorGUILayout.Slider("BattleDuration", _battleDuration, 0f, 60f);
-    _battleEmojiCount = EditorGUILayout.IntSlider("BattleEmojiCount", _battleEmojiCount, 0, 60);
+//    EditorGUILayout.Space(20f);
+//    _battleDuration = EditorGUILayout.Slider("BattleDuration", _battleDuration, 0f, 60f);
+//    _battleEmojiCount = EditorGUILayout.IntSlider("BattleEmojiCount", _battleEmojiCount, 0, 60);
 
-    if (GUILayout.Button("BattleStart")) {
-      ConversationBattleManager manager = Selection.activeGameObject.GetComponent<ConversationBattleManager>();
-      manager.ResetBattleUI();
-      manager.BattleStart(_battleEmojiCount, _battleDuration);
-    }
+//    if (GUILayout.Button("BattleStart")) {
+//      ConversationBattleManager manager = Selection.activeGameObject.GetComponent<ConversationBattleManager>();
+//      manager.ResetBattleUI();
+//      manager.BattleStart(_battleEmojiCount, _battleDuration);
+//    }
 
-    EditorGUILayout.Space(20f);
+//    EditorGUILayout.Space(20f);
 
-    foreach (EmojiBattleLaneController controller in _controllers) {
-      if (!controller) {
-        continue;
-      }
+//    foreach (EmojiBattleLaneController controller in _controllers) {
+//      if (!controller) {
+//        continue;
+//      }
 
-      if (EditorGUILayout.BeginFoldoutHeaderGroup(true, controller.name)) {
-        if (GUILayout.Button("GenerateEmoji")) {
-          controller.GenerateEmoji();
-        }
-      }
+//      if (EditorGUILayout.BeginFoldoutHeaderGroup(true, controller.name)) {
+//        if (GUILayout.Button("GenerateEmoji")) {
+//          controller.GenerateEmoji();
+//        }
+//      }
 
-      EditorGUILayout.EndFoldoutHeaderGroup();
-    }
-  }
-}
+//      EditorGUILayout.EndFoldoutHeaderGroup();
+//    }
+//  }
+//}
