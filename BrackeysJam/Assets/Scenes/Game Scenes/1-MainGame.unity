@@ -8132,6 +8132,7 @@ MonoBehaviour:
   triggerRadius: 2
   foodCheckmark: {fileID: 0}
   soundComplete: {fileID: 8300000, guid: d5d9e6838965b6d4ca9a75ffda883586, type: 3}
+  FoodTaskCompleted: 0
 --- !u!82 &914856303
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14908,6 +14909,8 @@ MonoBehaviour:
   isInBattle: 0
   extrovertCooldownTime: 5
   extrovertThatStartedBattle: {fileID: 0}
+  socialBattery: {fileID: 0}
+  socialBatteryManager: {fileID: 0}
 --- !u!4 &1670541800
 Transform:
   m_ObjectHideFlags: 0

@@ -1501,6 +1501,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94d7094b932ed14daa7eb03e89ddc71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  socialBattery: {fileID: 0}
+  socialBatteryManager: {fileID: 0}
 --- !u!4 &1215300151
 Transform:
   m_ObjectHideFlags: 0

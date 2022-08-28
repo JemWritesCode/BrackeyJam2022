@@ -44,7 +44,7 @@ public class SocialBatteryManager : MonoBehaviour {
     {
         while(socialBatteryHealthAmount > 0)
         {
-            DecreaseBatteryFill(.01f, 1f);
+            DecreaseBatteryFill(.005f, 1f);
             yield return new WaitForSeconds(1f);
         }
     }

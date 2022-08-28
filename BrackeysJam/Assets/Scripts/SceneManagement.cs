@@ -12,6 +12,8 @@ public class SceneManagement : MonoBehaviour
     GameObject player;
     PlayerMoveCode playerMoveScript;
 
+    public GameObject _healthHandler;
+    public HealthManager _healthManager;
 
 
     void Start()
@@ -21,9 +23,31 @@ public class SceneManagement : MonoBehaviour
         playerMoveScript =  player.GetComponent<PlayerMoveCode>();
         Extrovert.OnGuardHasSpottedPlayer += StartBattle;
 
-
+    //    StartCoroutine(DamageOverTime());
     }
 
+    private void LateUpdate()
+    {
+        if (!_healthHandler)
+        {
+            _healthHandler = GameObject.Find("HealthHandler");
+        }
+        if (!_healthManager)
+        {
+            _healthManager = _healthHandler.GetComponent<HealthManager>();
+        }
+ 
+    }
+
+    //IEnumerator DamageOverTime()
+    //{
+    //    while (_healthManager.socialBatteryManager.socialBatteryHealthAmount >= 0)
+    //    {
+    //        _healthManager.subtractForOverTime();
+    //        yield return new WaitForSeconds(1f);
+    //    }
+
+    //}
 
     void StartBattle(Extrovert extrovert)
     {
@@ -62,8 +86,19 @@ public class SceneManagement : MonoBehaviour
         extrovertThatStartedBattle.isOnBattleCooldown = true;
         Invoke("setExtrovertCooldownFalse", extrovertCooldownTime);
         ResumeLevel();
+
+        if (isRunningAway)
+        {
+            _healthManager.subtractForRunAway();
+        }
+        else
+        {
+            _healthManager.subtractForMisses(emojiMissCount);
+        }
+
         SceneManager.UnloadSceneAsync("2-ConversationBattle");
         extrovertThatStartedBattle.extrovertSoundPlayed = false;
+
     }
 
     void setExtrovertCooldownFalse()
