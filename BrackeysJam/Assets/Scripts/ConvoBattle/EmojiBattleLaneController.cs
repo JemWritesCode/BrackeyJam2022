@@ -44,7 +44,7 @@ public class EmojiBattleLaneController : MonoBehaviour {
         KeyIcon.transform
             .DOPunchScale(new Vector3(1.05f, 1.05f, 1.05f), 0.25f, 10, 0.5f)
             .SetAutoKill(false)
-            .SetLink(KeyIcon.gameObject)
+            .SetLink(KeyIcon)
             .Pause();
 
     _generateEmojiIconSequence =

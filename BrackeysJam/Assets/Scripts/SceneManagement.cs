@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    public bool isInBattle;
+    public bool isInBattle = false;
     public float extrovertCooldownTime = 5f;
     public Extrovert extrovertThatStartedBattle;
     
@@ -16,14 +17,24 @@ public class SceneManagement : MonoBehaviour
     public HealthManager _healthManager;
 
 
-    void Start()
-    {
-        SceneManager.LoadScene("1.5-GameUIScene", LoadSceneMode.Additive);
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerMoveScript =  player.GetComponent<PlayerMoveCode>();
-        Extrovert.OnGuardHasSpottedPlayer += StartBattle;
+    void Start() {
+      SceneManager.LoadScene("1.5-GameUIScene", LoadSceneMode.Additive);
+      StartCoroutine(WaitForPlayerToSetup());
+    }
 
-    //    StartCoroutine(DamageOverTime());
+    IEnumerator WaitForPlayerToSetup() {
+      while (true) {
+        yield return null;
+        GameObject playerObj = player = GameObject.FindGameObjectWithTag("Player");
+  
+        if (playerObj) {
+          Debug.Log("Found Player to setup!");
+          player = playerObj;
+          playerMoveScript = player.GetComponent<PlayerMoveCode>();
+          Extrovert.OnGuardHasSpottedPlayer += StartBattle;
+          yield break;
+        }
+      }
     }
 
     private void LateUpdate()
@@ -34,7 +45,7 @@ public class SceneManagement : MonoBehaviour
         }
         if (!_healthManager)
         {
-            _healthManager = _healthHandler.GetComponent<HealthManager>();
+            _healthManager = _healthHandler ? _healthHandler.GetComponent<HealthManager>() : null;
         }
  
     }
@@ -51,6 +62,7 @@ public class SceneManagement : MonoBehaviour
 
     void StartBattle(Extrovert extrovert)
     {
+        Debug.Log($"StartBattle called with extrovert: {extrovert.name}, current isInBattle: {isInBattle}");
         if (!isInBattle)
         {
             extrovertThatStartedBattle = extrovert;
@@ -84,7 +96,7 @@ public class SceneManagement : MonoBehaviour
         Debug.Log($"Ending Battle: emojiMissCount is: {emojiMissCount}, ranAway: {isRunningAway}");
         isInBattle = false;
         extrovertThatStartedBattle.isOnBattleCooldown = true;
-        Invoke("setExtrovertCooldownFalse", extrovertCooldownTime);
+        StartCoroutine(DelayThenRunAction(extrovertCooldownTime, SetExtrovertCooldownFalse));
         ResumeLevel();
 
         if (isRunningAway)
@@ -101,7 +113,13 @@ public class SceneManagement : MonoBehaviour
 
     }
 
-    void setExtrovertCooldownFalse()
+    private IEnumerator DelayThenRunAction(float delay, Action action)
+    {
+        yield return new WaitForSeconds(delay);
+        action?.Invoke();
+    }
+
+    void SetExtrovertCooldownFalse()
     {
         extrovertThatStartedBattle.isOnBattleCooldown = false;
     }

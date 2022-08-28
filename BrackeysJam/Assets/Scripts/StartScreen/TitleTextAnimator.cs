@@ -58,6 +58,7 @@ public class TitleTextAnimator : MonoBehaviour {
   void Start() {
     Sequence sequence =
         DOTween.Sequence()
+            .SetLink(gameObject)
             .Append(
                 transform.DOPunchScale(PunchScalePunch, PunchScaleDuration, PunchScaleVibrato, PunchScaleElasticity))
             .AppendInterval(LoopInterval);
