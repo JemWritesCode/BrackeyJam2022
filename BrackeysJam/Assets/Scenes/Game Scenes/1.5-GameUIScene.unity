@@ -1279,6 +1279,7 @@ MonoBehaviour:
   <SetFillFlashCount>k__BackingField: 5
   <IncreaseFillColor>k__BackingField: {r: 0.16470587, g: 0.7633334, b: 1, a: 0.84313726}
   <DecreaseFillColor>k__BackingField: {r: 1, g: 0.5684314, b: 0.16470587, a: 0.83137256}
+  socialBatteryHealthAmount: 0
 --- !u!1 &1159753609
 GameObject:
   m_ObjectHideFlags: 0

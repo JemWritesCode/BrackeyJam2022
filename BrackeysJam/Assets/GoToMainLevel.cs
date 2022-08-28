@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartTheGame : MonoBehaviour
+public class GoToMainLevel : MonoBehaviour
 {
-    public void StartTheGameClicked()
+    public void GoToMainLevelClicked()
     {
-        SceneManager.LoadScene("0.5-Tutorial");
+        SceneManager.LoadScene("1-MainGame");
     }
 }

@@ -12,12 +12,27 @@ public class SceneManagement : MonoBehaviour
     GameObject player;
     PlayerMoveCode playerMoveScript;
 
+    public GameObject socialBattery;
+    public SocialBatteryManager socialBatteryManager;
+
     void Start()
     {
         SceneManager.LoadScene("1.5-GameUIScene", LoadSceneMode.Additive);
         player = GameObject.FindGameObjectWithTag("Player");
         playerMoveScript =  player.GetComponent<PlayerMoveCode>();
         Extrovert.OnGuardHasSpottedPlayer += StartBattle;
+
+        socialBattery = GameObject.Find("SocialBattery");
+        socialBatteryManager = socialBattery.GetComponent<SocialBatteryManager>();
+    }
+
+
+
+    void Update()
+    {
+        HandleLoss();
+
+
     }
 
     void StartBattle(Extrovert extrovert)
@@ -78,9 +93,13 @@ public class SceneManagement : MonoBehaviour
     }
 
 
-    void GoToLoseScreen()
+    void HandleLoss()
     {
         // if social battery reaches 0
+        if(socialBatteryManager.socialBatteryHealthAmount <= 0)
+        {
+            SceneManager.LoadScene("4-Lose");
+        }
     }
 
     void GoToWinScreen()

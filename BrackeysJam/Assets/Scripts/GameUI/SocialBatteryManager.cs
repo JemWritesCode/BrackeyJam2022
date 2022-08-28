@@ -1,4 +1,6 @@
+using System;
 using DG.Tweening;
+using System.Collections;
 
 using UnityEngine;
 
@@ -23,28 +25,44 @@ public class SocialBatteryManager : MonoBehaviour {
 
   private Color _batteryFillStartColor;
 
+
+    public float socialBatteryHealthAmount;
+
+
   public void Awake() {
     _batteryFillStartColor = BatteryFill.color;
     BatteryFill.fillAmount = 1f;
+    socialBatteryHealthAmount = 1f;
   }
 
     private void Start()
     {
-        DecreaseBatteryFill(1f, 180f);
+        StartCoroutine(DamageOverTime());
+    }
 
+    IEnumerator DamageOverTime()
+    {
+        while(socialBatteryHealthAmount > 0)
+        {
+            DecreaseBatteryFill(.1f, 1f);
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     public void IncreaseBatteryFill(float offset, float duration = float.NegativeInfinity) {
     SetBatteryFill(BatteryFill.fillAmount + offset, duration, IncreaseFillColor);
+        socialBatteryHealthAmount += offset;
   }
 
   public void DecreaseBatteryFill(float offset, float duration = float.NegativeInfinity) {
     SetBatteryFill(BatteryFill.fillAmount - offset, duration, DecreaseFillColor);
-  }
+        socialBatteryHealthAmount -= offset;
+    }
 
   public void SetBatteryFill(float fill, float duration = float.NegativeInfinity) {
     SetBatteryFill(fill, duration, BatteryFill.color);
-  }
+        socialBatteryHealthAmount = fill;
+    }
 
   public void SetBatteryFill(float fill, float duration, Color flashColor) {
     if (duration < 0) {

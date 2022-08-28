@@ -6,15 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Game Scenes/0-StartScreen.unity
-    guid: f93e0b7df40089b4c928510f36fdc4a9
+    path: Assets/Scenes/Game Scenes/0-StartScreen 1.unity
+    guid: 4f021f53f01c7cc41b99e7fa37f44d97
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/0.5-Tutorial.unity
+    guid: c224fb8679f25274189847dbde56b482
   - enabled: 1
     path: Assets/Scenes/Game Scenes/1-MainGame.unity
-    guid: 18965dd971aef3a4ea7a51dbd6347eaa
+    guid: d530fce278106b54598b0b1ad79e5dca
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/1.5-GameUIScene.unity
+    guid: 6c19be229e0f4234d92bca4116483630
   - enabled: 1
     path: Assets/Scenes/Game Scenes/2-ConversationBattle.unity
     guid: 39ea61e83521b7d4f83e7c349f705c94
   - enabled: 1
-    path: Assets/Scenes/Game Scenes/1.5-GameUIScene.unity
-    guid: 6c19be229e0f4234d92bca4116483630
+    path: Assets/Scenes/Game Scenes/3-Win.unity
+    guid: 34a67572390acec4ca8ceaff87dc213a
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/4-Lose.unity
+    guid: a61bf04d582998f4bac0777228e43c8d
   m_configObjects: {}
