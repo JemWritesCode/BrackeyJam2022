@@ -28,7 +28,13 @@ public class SocialBatteryManager : MonoBehaviour {
     BatteryFill.fillAmount = 1f;
   }
 
-  public void IncreaseBatteryFill(float offset, float duration = float.NegativeInfinity) {
+    private void Start()
+    {
+        DecreaseBatteryFill(1f, 180f);
+
+    }
+
+    public void IncreaseBatteryFill(float offset, float duration = float.NegativeInfinity) {
     SetBatteryFill(BatteryFill.fillAmount + offset, duration, IncreaseFillColor);
   }
 

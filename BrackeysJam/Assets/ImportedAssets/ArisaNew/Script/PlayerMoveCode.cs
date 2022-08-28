@@ -11,12 +11,14 @@ public class PlayerMoveCode : GenericBehaviour
 	public float speedDampTime = 0.1f;                      
 	public float jumpHeight = 1.5f;                 
 	public float jumpIntertialForce = 10f;         
-	private float speed, speedSeeker;              
+	public float speed, speedSeeker;              
 	private int jumpBool;                          
 	private int groundedBool;                      
 	private bool jump;                              
 	private bool isColliding;                       
 	public bool isLock;
+
+	public bool isPaused;
 
 	void Start()
 	{
@@ -36,27 +38,29 @@ public class PlayerMoveCode : GenericBehaviour
 
 	void Update()
 	{
-		if (!jump && Input.GetKeyDown(KeyCode.Space) && behaviourManager.IsCurrentBehaviour(this.behaviourCode) && !behaviourManager.IsOverriding())
-		{
-			jump = true;
-		}
-
-
-		//Press ESC pause
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-			isLock = !isLock;
-			if (isLock)
+        if (!isPaused)
+        {
+			if (!jump && Input.GetKeyDown(KeyCode.Space) && behaviourManager.IsCurrentBehaviour(this.behaviourCode) && !behaviourManager.IsOverriding())
 			{
-				Time.timeScale = 0;
-				Cursor.lockState = CursorLockMode.None;
-				Cursor.visible = true;
+				jump = true;
 			}
-			else
+
+			//Press ESC pause
+			if (Input.GetKeyDown(KeyCode.Escape))
 			{
-				Time.timeScale = 1;
-				Cursor.lockState = CursorLockMode.Locked;
-				Cursor.visible = false;
+				isLock = !isLock;
+				if (isLock)
+				{
+					Time.timeScale = 0;
+					Cursor.lockState = CursorLockMode.None;
+					Cursor.visible = true;
+				}
+				else
+				{
+					Time.timeScale = 1;
+					Cursor.lockState = CursorLockMode.Locked;
+					Cursor.visible = false;
+				}
 			}
 		}
 	}
@@ -116,30 +120,39 @@ public class PlayerMoveCode : GenericBehaviour
 
 	void MovementManagement(float horizontal, float vertical)
 	{
-		if (behaviourManager.IsGrounded())
-			behaviourManager.GetRigidBody.useGravity = true;
+			if (behaviourManager.IsGrounded())
+				behaviourManager.GetRigidBody.useGravity = true;
 
 
-		else if (!behaviourManager.GetAnim.GetBool(jumpBool) && behaviourManager.GetRigidBody.velocity.y > 0)
-		{
-			RemoveVerticalVelocity();
-		}
+			else if (!behaviourManager.GetAnim.GetBool(jumpBool) && behaviourManager.GetRigidBody.velocity.y > 0)
+			{
+				RemoveVerticalVelocity();
+			}
 
-		Rotating(horizontal, vertical);
+			Rotating(horizontal, vertical);
 
 
-		Vector2 dir = new Vector2(horizontal, vertical);
-		speed = Vector2.ClampMagnitude(dir, 1f).magnitude;
+			Vector2 dir = new Vector2(horizontal, vertical);
+			speed = Vector2.ClampMagnitude(dir, 1f).magnitude;
 
-		speedSeeker += Input.GetAxis("Mouse ScrollWheel");
-		speedSeeker = Mathf.Clamp(speedSeeker, walkSpeed, runSpeed);
-		speed *= speedSeeker;
-		if (behaviourManager.IsSprinting())
-		{
-			speed = sprintSpeed;
-		}
+			speedSeeker += Input.GetAxis("Mouse ScrollWheel");
+			if (isPaused)
+			{
+			speedSeeker = 0;
+		    }
+			else
+			{
+				speedSeeker = Mathf.Clamp(speedSeeker, walkSpeed, runSpeed);
+			}
+			
+			speed *= speedSeeker;
+			if (behaviourManager.IsSprinting())
+			{
+				speed = sprintSpeed;
+			}
 
-		behaviourManager.GetAnim.SetFloat(speedFloat, speed, speedDampTime, Time.deltaTime);
+			behaviourManager.GetAnim.SetFloat(speedFloat, speed, speedDampTime, Time.deltaTime);
+		
 	}
 
 

@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BatteryFill>k__BackingField: {fileID: 1658894366}
   <SetFillDuration>k__BackingField: 1
-  <SetFillEase>k__BackingField: 9
+  <SetFillEase>k__BackingField: 1
   <SetFillFlashCount>k__BackingField: 5
   <IncreaseFillColor>k__BackingField: {r: 0.16470587, g: 0.7633334, b: 1, a: 0.84313726}
   <DecreaseFillColor>k__BackingField: {r: 1, g: 0.5684314, b: 0.16470587, a: 0.83137256}
